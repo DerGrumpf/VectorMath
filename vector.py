@@ -30,18 +30,23 @@ class Vector(object):
         else:
             return Vector(*[vec*val for val in self])
 
-    def __div__(self, vec):
-        # This must be fixed
+    def __truediv__(self, vec):
         raise ValueError("Division not defined")
 
     def __str__(self):
         return str(self.values)
+
+    def __repr__(self):
+        return str(self)
 
     def __len__(self):
         return len(self.values)
 
     def __neg__(self):
         return Vector(*[-val for val in self])
+
+    def __pos__(self):
+        return self
 
     def __iter__(self):
         for val in self.values:
@@ -56,7 +61,7 @@ class Vector(object):
     def __imul__(self, vec):
         return self * vec
 
-    def __idiv__(self, vec):
+    def __itruediv__(self, vec):
         # same as __div__
         return self / vec
 
@@ -71,35 +76,14 @@ class Vector(object):
         if scalar < 0:
             pass
 
+    def __getitem__(self, key):
+        return self.values[key]
 
+    def __setitem__(self, key, value):
+        self.values[key] = value
 
-if __name__ == '__main__':
-    v = Vector(*[i**2 for i in range(10)])
-    u = Vector(*[i**3 for i in range(-5,5)])
+    def __reversed__(self):
+        return Vector(*[val for val in reversed(self.values)])
 
-    print("Quadrtic Numbers (0..9)^2 V:", v)
-    print("Cubic Numbers (-5..5)^2 U:", u)
-    print("Addition V+U:", v+u)
-    print("Addition V+2:", v+2)
-    print("Subtraction V-U:", v-u)
-    print("Subtraction U-2.", u-2)
-    print("Negation -V:", -v)
-    print("Multiplication V*U:", v*u)
-    print("Power V^3:", v**3)
-    print()
-
-    try:
-        v / u
-    except Exception as e:
-        print("Division Error Test: V/U")
-        print("Exception:", e)
-
-    print()
-
-    d = Vector(*[i for i in range(5)])
-    print("Vector D with Dimension 5:", d)
-    try:
-        d + v
-    except Exception as e:
-        print("Vector Dimension Error Test: D")
-        print("Exception:", e)
+    def __bool__(self):
+        return not len(self) == 0
