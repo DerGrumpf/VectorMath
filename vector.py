@@ -47,25 +47,30 @@ class Vector(object):
         for val in self.values:
             yield val
 
-    def __radd__(self, vec):
+    def __iadd__(self, vec):
         return self + vec
 
-    def __rsub__(self, vec):
+    def __isub__(self, vec):
         return self - vec
 
-    def __rmul__(self, vec):
+    def __imul__(self, vec):
         return self * vec
 
-    def __rdiv__(self, vec):
+    def __idiv__(self, vec):
         # same as __div__
         return self / vec
 
     def __pow__(self, scalar):
         '''raise Matrix Values to a given Power Value'''
-        v = Vector(*self)
-        for _ in range(scalar):
-            v *= v
-        return v
+        if scalar > 0:
+            v = Vector(*self)
+            for _ in range(scalar):
+                v *= v
+            return v
+
+        if scalar < 0:
+            pass
+
 
 
 if __name__ == '__main__':
