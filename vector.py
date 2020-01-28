@@ -1,6 +1,8 @@
 class Vector(object):
     """docstring for Vector."""
 
+    version = 0.1
+
     def __init__(self, *args):
         super(Vector, self).__init__()
         self.values = list(args)
@@ -14,7 +16,6 @@ class Vector(object):
 
         else:
             return Vector(*[vec+val for val in self])
-
 
     def __sub__(self, vec):
         return self + -vec
@@ -46,6 +47,20 @@ class Vector(object):
         for val in self.values:
             yield val
 
+    def __radd__(self, vec):
+        return self + vec
+
+    def __rsub__(self, vec):
+        return self - vec
+
+    def __rmul__(self, vec):
+        return self * vec
+
+    def __rdiv__(self, vec):
+        # same as __div__
+        return self / vec
+
+
 if __name__ == '__main__':
     v = Vector(*[i**2 for i in range(10)])
     u = Vector(*[i**3 for i in range(-5,5)])
@@ -55,7 +70,7 @@ if __name__ == '__main__':
     print("Addition V+U:", v+u)
     print("Addition V+2:", v+2)
     print("Subtraction V-U:", v-u)
-    print("Subtraction U-2", u-2)
+    print("Subtraction U-2.", u-2)
     print("Negation -V:", -v)
     print("Multiplication V*U:", v*u)
     print()
