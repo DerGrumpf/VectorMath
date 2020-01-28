@@ -60,6 +60,13 @@ class Vector(object):
         # same as __div__
         return self / vec
 
+    def __pow__(self, scalar):
+        '''raise Matrix Values to a given Power Value'''
+        v = Vector(*self)
+        for _ in range(scalar):
+            v *= v
+        return v
+
 
 if __name__ == '__main__':
     v = Vector(*[i**2 for i in range(10)])
@@ -73,6 +80,7 @@ if __name__ == '__main__':
     print("Subtraction U-2.", u-2)
     print("Negation -V:", -v)
     print("Multiplication V*U:", v*u)
+    print("Power V^3:", v**3)
     print()
 
     try:
