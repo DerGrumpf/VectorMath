@@ -1,5 +1,7 @@
+from math import sqrt
+
 class Vector(object):
-    """docstring for Vector."""
+    """Defines a interactive usable Vector class"""
 
     version = 0.1
 
@@ -40,6 +42,7 @@ class Vector(object):
         return str(self)
 
     def __len__(self):
+        '''Returns Dimension of this Vector'''
         return len(self.values)
 
     def __neg__(self):
@@ -87,3 +90,50 @@ class Vector(object):
 
     def __bool__(self):
         return not len(self) == 0
+
+
+    # After here functions must be define
+
+    def dotproduct(self, vec):
+        if not len(self) == len(vec):
+            raise ValueError("Vectors must have the same Dimension")
+        return sum(self*vec)
+
+    def crossproduct(self, vec):
+        pass
+
+    def tripleproduct(self, vec1, vec2):
+        raise NotImplementedError("Tripleproduct WIP")
+        return (self.crossproduct(vec1)).dotproduct(vec2)
+
+    def magnitude(self):
+        '''Returns length of the Vector'''
+        return sqrt(self.dotproduct(self))
+
+    def sqrt_magnitude(self):
+        '''Returns length of the Vector squared'''
+        return self.dotproduct(self)
+
+    def norm(self):
+        '''Returns this normalized Vector with length 1'''
+        pass
+
+class Vector3(Vector):
+        back = None
+        down = None
+        forward = None
+        left = None
+        one = None
+        right = None
+        up = None
+        zero = None
+
+class Vector2(Vector):
+        back = None
+        down = None
+        forward = None
+        left = None
+        one = None
+        right = None
+        up = None
+        zero = None
