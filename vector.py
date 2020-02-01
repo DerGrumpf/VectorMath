@@ -5,9 +5,9 @@ class Vector(object):
 
     version = 0.1
 
-    def __init__(self, *args):
+    def __init__(self, *args) -> None:
         super(Vector, self).__init__()
-        self.values = list(args)
+        self.values = list(args) #should be a dict
 
     def __add__(self, vec):
         if type(vec) == type(self):
@@ -32,11 +32,17 @@ class Vector(object):
         else:
             return Vector(*[vec*val for val in self])
 
-    def __truediv__(self, vec):
+    def __truediv__(self, vec) -> Exception:
         raise ValueError("Division not defined")
 
-    def __str__(self):
-        return str(self.values)
+    def __str__(self) -> str:
+        o = str()
+        for i, v in enumerate(self):
+            if i == len(self)-1:
+                o += str(v)
+            else:
+                o += str(v) + ', '
+        return o
 
     def __repr__(self):
         return str(self)
@@ -118,22 +124,39 @@ class Vector(object):
         '''Returns this normalized Vector with length 1'''
         pass
 
+class Vector4(Vector):
+
+        one = Vector(1,1,1,1)
+        zero = Vector(0,0,0,0)
+
+        def __init__(self, x, y, z, w) -> None:
+            super(Vector3, self).__init__(x,y,z,w)
+            # this need to be bound with the values list
+            self.x, self.y, self.z, self.w = x, y, z, w
+
 class Vector3(Vector):
-        back = None
-        down = None
-        forward = None
-        left = None
-        one = None
-        right = None
-        up = None
-        zero = None
+        back = Vector(0,0,-1)
+        down = Vector(0,-1,0)
+        forward = Vector(0,0,1)
+        left = Vector(-1,0,0)
+        one = Vector(1,1,1)
+        right = Vector(1,0,0)
+        up = Vector(0,1,0)
+        zero = Vector(0,0,0)
+
+        def __init__(self, x, y, z) -> None:
+            super(Vector3, self).__init__(x,y,z)
+            # this need to be bound with the values list
+            self.x, self.y, self.z = x, y, z
 
 class Vector2(Vector):
-        back = None
-        down = None
-        forward = None
-        left = None
-        one = None
-        right = None
-        up = None
-        zero = None
+        down = Vector(0,-1)
+        left = Vector(-1,0)
+        one = Vector(1,1)
+        right = Vector(1,0)
+        up = Vector(0,1)
+        zero = Vector(0,0)
+
+        def __init__(self, x, y) -> None:
+            super(Vector2, self).__init__(x,y)
+            self.x, self.y = x, y

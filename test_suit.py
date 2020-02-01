@@ -1,7 +1,9 @@
-from vector import Vector
+from vector import Vector, Vector4
 
 v = Vector(*[i**2 for i in range(10)])
 u = Vector(*[i**3 for i in range(-5,5)])
+
+
 
 print("Quadrtic Numbers (0..9)^2 V:", v)
 print("Reversed:", reversed(v))
@@ -34,3 +36,6 @@ try:
 except Exception as e:
     print("Vector Dimension Error Test: D")
     print("Exception:", e)
+
+
+print(Vector4.zero)
